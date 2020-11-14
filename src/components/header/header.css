@@ -1,0 +1,38 @@
+.l-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: #000;
+}
+
+.nav {
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: var(--font-semi);
+}
+
+.nav_logo {
+    font-size: 1.5rem;
+    color: #fff;
+    letter-spacing: 2px;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav_logo {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+}
