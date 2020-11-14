@@ -11,7 +11,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      files: null
+      files: null,
+      isCompleted: false
     };
   }
 
@@ -93,6 +94,7 @@ class App extends Component {
             newFiles[index].isCompleted = true;
 
             setTimeout(() => {
+
               this.setState({
                 files: newFiles
               });
@@ -104,6 +106,11 @@ class App extends Component {
           console.danger("Compression Error: ", error.message);
         });
       }
+
+      setTimeout(() => {
+        this.setState({ isCompleted: true });
+      }, 1000);
+
     }
 
   }
@@ -124,7 +131,9 @@ class App extends Component {
 
     for (let index = 0; index < files.length; index++) {
       let file = files[index];
-      img.file(file.name, file.compressedFile);
+      let base64result = file.compressedFile.split(',')[1];
+      
+      img.file(file.name, base64result, { base64: true });
     }
 
     zip.generateAsync({ type: "blob" })
@@ -192,11 +201,11 @@ class App extends Component {
 
                         </div>
 
-                        <div className="col hide-sm hide-xs size-text flex-center">
+                        <div className="col size-text flex-center">
                           {file.compressedFileSizeInKB}
                         </div>
 
-                        <div className="col text-center">
+                        <div className="col hide-sm hide-xs text-center">
                           {file.fileSizeDifference}
                         </div>
 
@@ -208,7 +217,7 @@ class App extends Component {
 
 
               {
-                this.state.files ?
+                this.state.isCompleted ?
                   <button type="button" className="btn" onClick={this.downloadZip}>Download Zip</button> : ''
               }
 
